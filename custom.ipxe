@@ -6,7 +6,8 @@
 # iPXE and CoreOS Container Linux: https://coreos.com/os/docs/latest/booting-with-ipxe.html
 # Setting up Cloud Config: https://github.com/coreos/coreos-cloudinit
 # 64-bit only
- 
+
+set menu coreos
 goto ${menu}
 
 :coreos
