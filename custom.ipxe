@@ -3,27 +3,10 @@
 # RancherOS
 # http://rancher.com/rancher-os/
 
-:start
-chain --autofree boot.cfg ||
-iseq ${cls} serial && goto ignore_cls ||
-set cls:hex 1b:5b:4a  # ANSI clear screen sequence - "^[[J"
-set cls ${cls:string}
-:ignore_cls
-
-isset ${arch} && goto skip_arch_detect ||
-cpuid --ext 29 && set arch x86_64 || set arch i386
-iseq ${buildarch} arm64 && set arch arm64 ||
-:skip_arch_detect
-
-set space:hex 20:20
-set space ${space:string}
-iseq ${arch} i386 && set arch5 i586 || set arch5 ${arch}
-iseq ${arch} x86_64 && set arch_a amd64 || set arch_a ${arch}
-
 :rancheros_menu
 set url releases.rancher.com
-menu RancherOS [ ${arch} ]
-item latest RancherOS Latest (20 MB) (4)
+menu RancherOS
+item latest RancherOS Latest (20 MB) (5)
 choose version || goto rancheros_exit
 goto ${version}
 
@@ -35,7 +18,7 @@ goto boot
 :boot
 echo Login in with username: rancher, password: rancher
 echo To install: ros install -d /dev/sda1
-kernel http://${url}/${folder}/vmlinuz rancher.state.autoformat=[/dev/sda] rancher.password=rancher initrd=initrd
+kernel http://${url}/${folder}/vmlinuz rancher.state.dev=none rancher.state.autoformat=[/dev/sda] rancher.password=rancher initrd=initrd
 initrd http://${url}/${folder}/initrd
 boot
 
