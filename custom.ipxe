@@ -1,12 +1,27 @@
 #!ipxe
-###
-### netboot.xyz-custom menu
-###
 
-:start
-echo Hello world!
-sleep 10
-goto custom_exit
+# RancherOS
+# http://rancher.com/rancher-os/
 
-:custom_exit
+:rancheros_menu
+set url releases.rancher.com
+menu RancherOS
+item latest RancherOS Latest (20 MB)
+choose version || goto rancheros_exit
+goto ${version}
+
+:latest
+echo ${cls}
+set folder os/latest
+goto boot
+
+:boot
+echo Login in with username: rancher, password: rancher
+echo To install: ros install -d /dev/sda1
+kernel http://${url}/${folder}/vmlinuz rancher.state.autoformat=[/dev/sda] rancher.password=rancher initrd=initrd rancher.cloud_init.datasources=[url:https://gist.githubusercontent.com/jpastuszek/8581dbec89c774508cc2576938acbf54/raw/da41cda94e29e7b4dbd64b207efaefda7e0a734a/clound-rancher.conf]
+initrd http://${url}/${folder}/initrd
+boot
+
+:rancheros_exit
+clear menu
 exit 0
