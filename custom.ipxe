@@ -3,15 +3,6 @@
 # RancherOS
 # http://rancher.com/rancher-os/
 
-
-#!ipxe
-
-:global_vars
-
-
-# set location of latest iPXE
-set ipxe_disk netboot.xyz-undionly.kpxe
-
 :rancheros_menu
 set url releases.rancher.com
 menu RancherOS
