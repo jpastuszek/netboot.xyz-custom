@@ -5,8 +5,8 @@
 
 :rancheros_menu
 set url releases.rancher.com
-menu RancherOS
-item latest RancherOS Latest (20 MB) (6)
+menu RancherOS (7)
+item latest RancherOS Latest (20 MB)
 choose version || goto rancheros_exit
 goto ${version}
 
