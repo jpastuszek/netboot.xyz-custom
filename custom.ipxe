@@ -5,14 +5,20 @@
 
 :rancheros_menu
 set url releases.rancher.com
-menu RancherOS (8)
-item latest RancherOS Latest (20 MB)
+menu RancherOS (9)
+item latest RancherOS Latest
+item v1_2_0 RancherOS v1.2.0
 choose version || goto rancheros_exit
 goto ${version}
 
 :latest
 echo ${cls}
 set folder os/latest
+goto boot
+
+:v1_2_0
+echo ${cls}
+set folder os/v1.2.0
 goto boot
 
 :boot
