@@ -4,7 +4,7 @@
 
 :rancheros_menu
 set url releases.rancher.com
-menu RancherOS (10)
+menu RancherOS (11)
 item latest RancherOS Latest
 item v1_2_0 RancherOS v1.2.0
 choose version || goto rancheros_exit
