@@ -7,6 +7,8 @@ set url releases.rancher.com
 menu RancherOS (11)
 item latest RancherOS Latest
 item v1_2_0 RancherOS v1.2.0
+item v1_2_0_install RancherOS v1.2.0 Auto Install
+item v1_2_0_install_selenoid_node RancherOS v1.2.0 Selenoid Node Auto Install
 choose version || goto rancheros_exit
 goto ${version}
 
@@ -20,11 +22,23 @@ echo ${cls}
 set folder os/v1.2.0
 goto boot
 
+:v1_2_0_install
+echo ${cls}
+set folder os/v1.2.0
+set args rancher.cloud_init.datasources=[url:https://raw.githubusercontent.com/jpastuszek/netboot.xyz-custom/master/install-rancher.cloud]
+goto boot
+
+:v1_2_0_install_selenoid_node
+echo ${cls}
+set folder os/v1.2.0
+set args rancher.cloud_init.datasources=[url:https://raw.githubusercontent.com/jpastuszek/netboot.xyz-custom/master/install-rancher-selenoid-node.cloud]
+goto boot
+
 :boot
 echo Login in with username: rancher, password: rancher
 echo To install: ros install -d /dev/sda1
 imgfree
-kernel http://${url}/${folder}/vmlinuz vga=795 rancher.state.autoformat=[/dev/sda] rancher.password=rancher rancher.autologin=ttyS1 initrd=initrd rancher.cloud_init.datasources=[url:https://raw.githubusercontent.com/jpastuszek/netboot.xyz-custom/master/install-rancher.cloud]
+kernel http://${url}/${folder}/vmlinuz vga=795 rancher.state.autoformat=[/dev/sda] rancher.password=rancher rancher.autologin=ttyS1 initrd=initrd ${args}
 initrd http://${url}/${folder}/initrd
 boot
 
