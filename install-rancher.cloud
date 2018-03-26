@@ -1,3 +1,4 @@
+#cloud-config
 runcmd:
 - sudo mkdir /dev/sr0
 - sudo ros install -f -d /dev/sda --cloud-config https://gist.githubusercontent.com/jpastuszek/8581dbec89c774508cc2576938acbf54/raw/da41cda94e29e7b4dbd64b207efaefda7e0a734a/clound-rancher.conf
