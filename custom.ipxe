@@ -1,7 +1,32 @@
 #!ipxe
-dhcp
-set base-url https://releases.rancher.com/os/latest
-imgfree
-kernel http://${url}/${folder}/vmlinuz rancher.state.autoformat=[/dev/sda] rancher.password=rancher initrd=initrd
+# RancherOS
+# http://rancher.com/rancher-os/
+
+:rancheros_menu
+set url releases.rancher.com
+menu RancherOS (9)
+item latest RancherOS Latest
+item v1_2_0 RancherOS v1.2.0
+choose version || goto rancheros_exit
+goto ${version}
+
+:latest
+echo ${cls}
+set folder os/latest
+goto boot
+
+:v1_2_0
+echo ${cls}
+set folder os/v1.2.0
+goto boot
+
+:boot
+echo Login in with username: rancher, password: rancher
+echo To install: ros install -d /dev/sda1
+kernel http://${url}/${folder}/vmlinuz vga=795 rancher.state.dev=LABEL=RANCHER_STATE rancher.state.autoformat=[/dev/sda] rancher.password=rancher initrd=initrd rancher.cloud_init.datasources=[url:https://gist.githubusercontent.com/jpastuszek/8581dbec89c774508cc2576938acbf54/raw/da41cda94e29e7b4dbd64b207efaefda7e0a734a/clound-rancher.conf]
 initrd http://${url}/${folder}/initrd
 boot
+
+:rancheros_exit
+clear menu
+exit 0
