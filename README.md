@@ -14,3 +14,5 @@ from the Utility menu which will cause a custom menu to appear in the main menu.
 
 If you are new to iPXE scripting, take a look at custom.ipxe.example and build up from that.
 
+### Clear GitHub cache after update
+`curl -X PURGE https://raw.githubusercontent.com/jpastuszek/netboot.xyz-custom/master/custom.ipxe`
