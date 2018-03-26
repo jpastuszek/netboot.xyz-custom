@@ -1,4 +1,5 @@
 #cloud-config
+output: {all: '| tee -a /var/log/cloud-init-output.log'}
 runcmd:
 - sudo mkdir /dev/sr0
 - sudo ros install -f -d /dev/sda --cloud-config https://raw.githubusercontent.com/jpastuszek/netboot.xyz-custom/master/setup-rancher-selenoid-node.cloud
